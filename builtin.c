@@ -11,14 +11,26 @@ return (sizeof(builtin_str) / sizeof(char *));
 }
 
 /**
- * launch - Launch a program and execute it
- * @args: The array of arguments
+ * builtin_cd - Change the current working directory
+ * @args: Array of arguments (including the command)
  *
- * Return: 1 to continue running, 0 to exit
+ * Return: 1 on success, 0 on failure
  */
-int launch(char **args)
+int builtin_cd(char **args)
 {
+if (args[1] == NULL)
+{
+fprintf(stderr, "cd: missing argument\n");
 return (0);
+}
+
+if (chdir(args[1]) != 0)
+{
+perror("cd");
+return (0);
+}
+
+return (1);
 }
 
 /**
@@ -29,7 +41,13 @@ return (0);
  */
 int execute(char **args)
 {
-return (launch(args));
+if (args[0] == NULL)
+{
+// Empty command, do nothing
+return (1);
+}
+
+return (0);
 }
 
 /**
@@ -41,7 +59,8 @@ char *line;
 char **args;
 int status;
 
-do {
+do
+{
 printf("#cisfun$ ");
 line = read_line();
 args = split_line(line);
