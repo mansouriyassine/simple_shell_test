@@ -1,4 +1,8 @@
 #include "shell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 /**
  * num_builtins - Get the number of built-in commands
@@ -18,10 +22,10 @@ return (sizeof(builtin_str) / sizeof(char *));
  */
 int builtin_cd(char **args)
 {
-if (args[1] == NULL)
+if (!args[1])
 {
-fprintf(stderr, "cd: missing argument\n");
-return (0);
+fprintf(stderr, "cd: expected argument\n");
+return (1);
 }
 
 if (chdir(args[1]) != 0)
@@ -34,39 +38,44 @@ return (1);
 }
 
 /**
- * execute - Execute a program
- * @args: The array of arguments
+ * builtin_exit - Exit the shell
+ * @args: Array of arguments (including the command)
  *
- * Return: 1 to continue running, 0 to exit
+ * Return: 0 on success, -1 on failure
  */
-int execute(char **args)
+int builtin_exit(char **args)
 {
-if (args[0] == NULL)
+if (args[1])
 {
-// Empty command, do nothing
-return (1);
+int status = atoi(args[1]);
+exit(status);
 }
-
-return (0);
+exit(0);
 }
 
 /**
- * loop - Read and execute commands in a loop
+ * execute_builtin - Execute a built-in command
+ * @args: Array of arguments (including the command)
+ *
+ * Return: 1 if a built-in was executed, 0 otherwise
  */
-void loop(void)
+int execute_builtin(char **args)
 {
-char *line;
-char **args;
-int status;
+int i, num_builtins;
+builtin_func builtin_functions[] = {
+{"cd", builtin_cd},
+{"exit", builtin_exit},
+};
 
-do
+num_builtins = sizeof(builtin_functions) / sizeof(builtin_func);
+
+for (i = 0; i < num_builtins; i++)
 {
-printf("#cisfun$ ");
-line = read_line();
-args = split_line(line);
-status = execute(args);
+if (strcmp(args[0], builtin_functions[i].cmd) == 0)
+{
+return (builtin_functions[i].func(args));
+}
+}
 
-free(line);
-free(args);
-} while (status);
+return (0);
 }

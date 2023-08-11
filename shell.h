@@ -4,27 +4,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 
-#define MAX_INPUT_SIZE 1024
-
-/* Struct to store shell information */
-typedef struct info_struct
-{
-char **args;           /* Array of arguments */
-char *command;         /* Full command string */
-char *input_file;      /* Input file for redirection */
-char *output_file;     /* Output file for redirection */
-int background;        /* Background flag */
-} info_t;
+/* Shell info struct */
+typedef struct {
+char **args;
+char *input_file;
+char *output_file;
+int background;
+} shell_info;
 
 /* Function prototypes */
 void print_prompt(void);
 char *read_line(void);
-info_t *parse_line(char *line);
-int execute_command(info_t *info);
-void free_info(info_t *info);
+shell_info *parse_line(char *line);
+int execute_command(shell_info *info);
+void free_info(shell_info *info);
+int builtin_cd(char **args);
+int builtin_exit(char **args);
+int builtin_env(char **args);
+int builtin_history(char **args);
 
 #endif /* SHELL_H */

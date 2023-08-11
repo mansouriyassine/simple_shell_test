@@ -8,6 +8,7 @@ simple_shell/
 ├── utils.c               # Utility functions (e.g., string manipulation)
 ├── history.c             # Functions for handling command history
 ├── variables.c           # Handling environment variables and variables
+├── path.c                # Functions for handling the PATH environment variable
 ├── signals.c             # Signal handling
 ├── error_handling.c      # Error handling functions
 │
@@ -15,20 +16,21 @@ simple_shell/
 └── README.md             # Description and usage instructions
 
 
+
 Task	Files
 Task 1	shell.h, main.c, builtin.c
 Task 2	parser.c, executor.c, utils.c, history.c
-Task 3	variables.c, signals.c, error_handling.c
-Task 4	builtin.c (Modify exit function)
-Task 5	builtin.c (Implement env function)
-Task 6	main.c (Implement custom getline function)
-Task 7	parser.c (Implement custom strtok function)
-Task 8	builtin.c (Modify exit function to handle arguments)
-Task 9	builtin.c (Implement setenv and unsetenv functions)
-Task 10	builtin.c (Implement cd function), variables.c (Update PWD)
-Task 11	parser.c (Handle commands separator)
-Task 12	parser.c (Handle && and
-Task 13	builtin.c (Implement alias function)
-Task 14	variables.c (Handle $? and $$ variables)
-Task 15	parser.c (Handle comments)
-Task 16	main.c (Read and execute commands from a file)
+Task 3	variables.c, signals.c, error_handling.c, path.c
+Task 4	builtin.c (Update: Implement builtin_exit)
+Task 5	builtin.c (Update: Implement builtin_env)
+Task 6	parser.c (Update: Implement read_line)
+Task 7	parser.c (Update: Implement split_line)
+Task 8	builtin.c (Update: Implement argument for builtin_exit)
+Task 9	builtin.c (Update: Implement builtin_setenv and builtin_unsetenv)
+Task 10	builtin.c (Update: Implement builtin_cd)
+Task 11	parser.c (Update: Implement command separator ;)
+Task 12	parser.c (Update: Implement logical operators && and `
+Task 13	builtin.c (Update: Implement builtin_alias)
+Task 14	variables.c (Update: Handle variable replacement for $? and $$)
+Task 15	parser.c (Update: Handle comments #)
+Task 16	main.c (Update: Accept filename argument and read commands from file)
