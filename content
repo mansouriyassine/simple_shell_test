@@ -13,3 +13,22 @@ simple_shell/
 │
 ├── Makefile              # Build script for compiling the shell
 └── README.md             # Description and usage instructions
+
+
+Task	Files
+Task 1	shell.h, main.c, builtin.c
+Task 2	parser.c, executor.c, utils.c, history.c
+Task 3	variables.c, signals.c, error_handling.c
+Task 4	builtin.c (Modify exit function)
+Task 5	builtin.c (Implement env function)
+Task 6	main.c (Implement custom getline function)
+Task 7	parser.c (Implement custom strtok function)
+Task 8	builtin.c (Modify exit function to handle arguments)
+Task 9	builtin.c (Implement setenv and unsetenv functions)
+Task 10	builtin.c (Implement cd function), variables.c (Update PWD)
+Task 11	parser.c (Handle commands separator)
+Task 12	parser.c (Handle && and
+Task 13	builtin.c (Implement alias function)
+Task 14	variables.c (Handle $? and $$ variables)
+Task 15	parser.c (Handle comments)
+Task 16	main.c (Read and execute commands from a file)

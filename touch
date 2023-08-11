@@ -5,8 +5,7 @@
 #include <stdio.h>
 
 /**
- * struct builtin_func - Struct for built-in commands
- * and their functions
+ * struct builtin_func - Struct for built-in commands and their functions
  * @cmd: The command name
  * @func: The corresponding function to execute the command
  */
