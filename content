@@ -1,0 +1,15 @@
+simple_shell/
+│
+├── shell.h               # Header file containing function prototypes and structures
+├── main.c                # Entry point of the shell
+├── builtin.c             # Implementations of built-in commands
+├── parser.c              # Functions for parsing user input
+├── executor.c            # Functions for executing commands
+├── utils.c               # Utility functions (e.g., string manipulation)
+├── history.c             # Functions for handling command history
+├── variables.c           # Handling environment variables and variables
+├── signals.c             # Signal handling
+├── error_handling.c      # Error handling functions
+│
+├── Makefile              # Build script for compiling the shell
+└── README.md             # Description and usage instructions
