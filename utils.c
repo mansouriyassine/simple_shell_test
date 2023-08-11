@@ -1,63 +1,72 @@
 #include "shell.h"
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 /**
- * _strdup - Duplicate a string.
- * @str: The string to duplicate.
+ * _strdup - Duplicate a string
+ * @str: The string to duplicate
  *
- * Return: A pointer to the new duplicated string,
- * or NULL if str is NULL or if memory allocation fails.
+ * Return: Pointer to the duplicated string, or NULL if allocation fails
  */
-char *_strdup(char *str)
+char *_strdup(const char *str)
 {
-char *dup;
-int len, i;
-
 if (!str)
 return (NULL);
 
-len = _strlen(str);
+int len = strlen(str);
+char *dup = malloc(len + 1);
 
-dup = malloc(sizeof(char) * (len + 1));
 if (!dup)
 return (NULL);
 
-for (i = 0; i <= len; i++)
-dup[i] = str[i];
-
+strcpy(dup, str);
 return (dup);
 }
 
 /**
- * _strlen - Calculate the length of a string.
- * @str: The input string.
+ * _strcmp - Compare two strings
+ * @s1: The first string
+ * @s2: The second string
  *
- * Return: The length of the string.
+ * Return: Negative value if s1 < s2, positive value if s1 > s2, 0 if equal
  */
-int _strlen(char *str)
+int _strcmp(const char *s1, const char *s2)
 {
-int len = 0;
+while (*s1 && *s1 == *s2)
+{
+s1++;
+s2++;
+}
 
-while (str[len])
-len++;
-
-return (len);
+return (*s1 - *s2);
 }
 
 /**
- * _strcmp - Compare two strings.
- * @s1: The first string.
- * @s2: The second string.
+ * _putchar - Write a character to stdout
+ * @c: The character to write
  *
- * Return: 0 if the strings are equal, a value less than 0
- * if s1 is less than s2, and a value greater than 0
- * if s1 is greater than s2.
+ * Return: Number of characters written
  */
-int _strcmp(char *s1, char *s2)
+int _putchar(char c)
 {
-int i = 0;
+return (write(1, &c, 1));
+}
 
-while (s1[i] && s2[i] && s1[i] == s2[i])
-i++;
+/**
+ * print_number - Print an integer
+ * @n: The integer to print
+ */
+void print_number(int n)
+{
+if (n < 0)
+{
+_putchar('-');
+n = -n;
+}
 
-return (s1[i] - s2[i]);
+if (n / 10)
+print_number(n / 10);
+
+_putchar(n % 10 + '0');
 }

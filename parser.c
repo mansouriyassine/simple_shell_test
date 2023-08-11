@@ -1,43 +1,57 @@
 #include "shell.h"
+#include <string.h>
+#include <stdlib.h>
+
+#define TOK_BUFSIZE 64
 
 /**
- * parse_input - Tokenizes the input line into separate words
- * @info: Pointer to the parameter struct
+ * parse_line - Parse input line into tokens
+ * @line: The input line to parse
  *
- * Return: Array of arguments (words)
+ * Return: Pointer to shell_info struct containing parsed information
  */
-char **parse_input(info_t *info)
+shell_info *parse_line(char *line)
 {
-size_t i;
-char *token;
-char **args;
+int bufsize = TOK_BUFSIZE, position = 0;
+char **tokens = malloc(bufsize * sizeof(char *));
 
-/* Count the number of tokens in the input */
-size_t num_tokens = count_tokens(info->cmd_buf, ' ');
-
-/* Allocate memory for the arguments array */
-args = malloc((num_tokens + 1) * sizeof(char *));
-if (!args)
+if (!tokens)
 {
-perror("malloc");
+fprintf(stderr, "Allocation error\n");
 return (NULL);
 }
 
-/* Tokenize the input and store tokens in the arguments array */
-for (i = 0; i < num_tokens; i++)
+char *token = strtok(line, " ");
+while (token)
 {
-token = _strsep(&(info->cmd_buf), " ");
-args[i] = _strdup(token);
-if (!args[i])
+tokens[position] = token;
+position++;
+
+if (position >= bufsize)
 {
-perror("malloc");
-free_args(args);
+bufsize += TOK_BUFSIZE;
+tokens = realloc(tokens, bufsize * sizeof(char *));
+if (!tokens)
+{
+fprintf(stderr, "Allocation error\n");
 return (NULL);
 }
 }
 
-/* Set the last element of the arguments array to NULL */
-args[i] = NULL;
+token = strtok(NULL, " ");
+}
 
-return (args);
+shell_info *info = malloc(sizeof(shell_info));
+if (!info)
+{
+fprintf(stderr, "Allocation error\n");
+return (NULL);
+}
+
+info->args = tokens;
+info->input_file = NULL;   // Initialize input_file
+info->output_file = NULL;  // Initialize output_file
+info->background = 0;      // Initialize background
+
+return (info);
 }
