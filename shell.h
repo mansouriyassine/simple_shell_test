@@ -1,26 +1,30 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
-/**
- * struct builtin_func - Struct for built-in commands
- * and their functions
- * @cmd: The command name
- * @func: The corresponding function to execute the command
- */
-typedef struct builtin_func
+#define MAX_INPUT_SIZE 1024
+
+/* Struct to store shell information */
+typedef struct info_struct
 {
-char *cmd;
-int (*func)(char **);
-} builtin_func;
+char **args;           /* Array of arguments */
+char *command;         /* Full command string */
+char *input_file;      /* Input file for redirection */
+char *output_file;     /* Output file for redirection */
+int background;        /* Background flag */
+} info_t;
 
 /* Function prototypes */
-void loop(void);
+void print_prompt(void);
 char *read_line(void);
-char **split_line(char *line);
-int launch(char **args);
-int execute(char **args);
+info_t *parse_line(char *line);
+int execute_command(info_t *info);
+void free_info(info_t *info);
 
 #endif /* SHELL_H */
